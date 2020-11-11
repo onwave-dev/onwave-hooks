@@ -1,0 +1,9 @@
+.idea/
+.vscode/
+.github/
+.git/
+node_modules/
+src
+.gitignore
+rollup.config.js
+tsconfig.json
