@@ -19,7 +19,7 @@
     "utility"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "yarn && yarn build && rm -rf node_modules",
     "build": "tsc && rollup -c"
   },
   "repository": {
@@ -34,6 +34,7 @@
   "peerDependencies": {
     "@emotion/core": "^10.1.1",
     "@emotion/styled": "^10.0.27",
+    "axios": "^0.21.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   },
@@ -46,6 +47,7 @@
     "@types/react": "^16.9.56",
     "@types/react-dom": "^16.9.9",
     "@types/react-test-renderer": "^16.9.3",
+    "axios": "^0.21.0",
     "babel-loader": "^8.1.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -59,8 +61,5 @@
     "rollup-plugin-typescript2": "^0.29.0",
     "storybook": "^6.0.28",
     "typescript": "^4.0.5"
-  },
-  "dependencies": {
-    "axios": "^0.21.0"
   }
 }
