@@ -1,6 +1,6 @@
 {
   "name": "@onwave/hooks",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "onwave react hooks",
   "main": "dist/index.js",
   "module": "dist/esm/index.js",
@@ -30,7 +30,7 @@
   "bugs": {
     "url": "https://github.com/onwave-dev/onwave-hooks/issues"
   },
-  "homepage": "https://github.com/onwave-dev/onwave-ui#readme",
+  "homepage": "https://github.com/onwave-dev/onwave-hooks#readme",
   "peerDependencies": {
     "@emotion/core": "^10.1.1",
     "@emotion/styled": "^10.0.27",
