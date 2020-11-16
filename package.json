@@ -19,7 +19,7 @@
     "utility"
   ],
   "scripts": {
-    "test": "yarn && yarn build && rm -rf node_modules",
+    "test": "yarn && yarn build && rm -rf node_modules/react",
     "build": "tsc && rollup -c"
   },
   "repository": {
