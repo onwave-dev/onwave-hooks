@@ -1,14 +1,19 @@
-import defaultAxios, { AxiosRequestConfig } from "axios";
+import defaultAxios, { AxiosError, AxiosRequestConfig } from "axios";
 import { useEffect, useState } from "react";
 
-export const useAxios = (
+type Data<T> = {
+  data?: T;
+  error?: AxiosError;
+  loading: boolean;
+};
+export const useAxios = <T>(
   opts: AxiosRequestConfig,
   axiosInstance = defaultAxios
 ) => {
-  const [state, setState] = useState({
+  const [state, setState] = useState<Data<T>>({
     loading: true,
-    error: null,
-    data: null,
+    error: undefined,
+    data: undefined,
   });
   const [trigger, setTrigger] = useState(0);
   if (!opts.url) {
