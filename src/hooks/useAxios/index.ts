@@ -17,9 +17,7 @@ export const useAxios = <T>(
     data: null,
   });
   const [trigger, setTrigger] = useState(0);
-  if (!opts?.url) {
-    return;
-  }
+
   const post = (opts: AxiosRequestConfig) => {
     setConfig({ ...config, ...opts });
     setState({
