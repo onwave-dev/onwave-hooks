@@ -7,7 +7,7 @@ type Data<T> = {
   loading: boolean;
 };
 export const useAxios = <T>(
-  opts: AxiosRequestConfig,
+  opts?: AxiosRequestConfig,
   axiosInstance = defaultAxios
 ) => {
   const [config, setConfig] = useState(opts);
@@ -17,11 +17,11 @@ export const useAxios = <T>(
     data: undefined,
   });
   const [trigger, setTrigger] = useState(0);
-  if (!opts.url) {
+  if (!opts?.url) {
     return;
   }
   const post = (opts: AxiosRequestConfig) => {
-    setConfig(opts);
+    setConfig({ ...config, ...opts });
     setState({
       loading: true,
     });
@@ -35,17 +35,19 @@ export const useAxios = <T>(
     setTrigger(Date.now());
   };
   useEffect(() => {
-    axiosInstance(config)
-      .then(({ data }) => {
-        setState({
-          ...state,
-          loading: false,
-          data,
+    if (config) {
+      axiosInstance(config)
+        .then(({ data }) => {
+          setState({
+            ...state,
+            loading: false,
+            data,
+          });
+        })
+        .catch((error) => {
+          setState({ ...state, loading: false, error });
         });
-      })
-      .catch((error) => {
-        setState({ ...state, loading: false, error });
-      });
-  }, [trigger]);
+    }
+  }, [trigger, config]);
   return { ...state, refetch, post };
 };
