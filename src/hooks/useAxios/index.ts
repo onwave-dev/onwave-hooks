@@ -2,8 +2,8 @@ import defaultAxios, { AxiosError, AxiosRequestConfig } from "axios";
 import { useEffect, useState } from "react";
 
 type Data<T> = {
-  data?: T;
-  error?: AxiosError;
+  data: T | null;
+  error: AxiosError | null;
   loading: boolean;
 };
 export const useAxios = <T>(
@@ -13,8 +13,8 @@ export const useAxios = <T>(
   const [config, setConfig] = useState(opts);
   const [state, setState] = useState<Data<T>>({
     loading: true,
-    error: undefined,
-    data: undefined,
+    error: null,
+    data: null,
   });
   const [trigger, setTrigger] = useState(0);
   if (!opts?.url) {
@@ -24,6 +24,8 @@ export const useAxios = <T>(
     setConfig({ ...config, ...opts });
     setState({
       loading: true,
+      data: null,
+      error: null,
     });
     setTrigger(Date.now());
   };
