@@ -8,6 +8,7 @@ type Data<T> = {
 };
 export const useAxios = <T>(
   opts?: AxiosRequestConfig,
+  skip?: boolean,
   axiosInstance = defaultAxios
 ) => {
   const [config, setConfig] = useState(opts);
@@ -35,7 +36,7 @@ export const useAxios = <T>(
     setTrigger(Date.now());
   };
   useEffect(() => {
-    if (config) {
+    if (config && !skip) {
       axiosInstance(config)
         .then(({ data }) => {
           setState({
