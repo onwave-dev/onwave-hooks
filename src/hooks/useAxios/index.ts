@@ -7,11 +7,12 @@ type Data<T> = {
   loading: boolean;
 };
 export const useAxios = <T>(
-  opts?: AxiosRequestConfig,
+  opts?: () => AxiosRequestConfig,
   skip?: boolean,
+  deps: any[] = [],
   axiosInstance = defaultAxios
 ) => {
-  const [config, setConfig] = useState(opts);
+  const [config, setConfig] = useState(opts?.());
   const [state, setState] = useState<Data<T>>({
     loading: true,
     error: null,
@@ -19,15 +20,10 @@ export const useAxios = <T>(
   });
   const [trigger, setTrigger] = useState(0);
 
-  const post = (opts: AxiosRequestConfig) => {
+  const reconfig = (opts: AxiosRequestConfig) => {
     setConfig({ ...config, ...opts });
-    setState({
-      loading: true,
-      data: null,
-      error: null,
-    });
-    setTrigger(Date.now());
   };
+
   const refetch = () => {
     setState({
       ...state,
@@ -35,8 +31,10 @@ export const useAxios = <T>(
     });
     setTrigger(Date.now());
   };
+
   useEffect(() => {
-    if (config && !skip) {
+    if (skip) return;
+    if (config) {
       axiosInstance(config)
         .then(({ data }) => {
           setState({
@@ -49,6 +47,6 @@ export const useAxios = <T>(
           setState({ ...state, loading: false, error });
         });
     }
-  }, [trigger, config]);
-  return { ...state, refetch, post };
+  }, [trigger, config, skip, ...deps]);
+  return { ...state, refetch, reconfig };
 };
