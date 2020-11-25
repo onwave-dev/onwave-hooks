@@ -7,5 +7,9 @@ export const useTextArea = (initialValue: any) => {
     setValue(e.target.value);
   };
 
-  return { value, onChange: handleChange };
+  const reset = () => {
+    setValue(initialValue);
+  };
+
+  return { value, onChange: handleChange, reset };
 };
