@@ -7,12 +7,11 @@ type Data<T> = {
   loading: boolean;
 };
 export const useAxios = <T>(
-  opts?: () => AxiosRequestConfig,
+  opts?: AxiosRequestConfig,
   skip?: boolean,
-  deps: any[] = [],
   axiosInstance = defaultAxios
 ) => {
-  const [config, setConfig] = useState(opts?.());
+  const [config, setConfig] = useState(opts);
   const [state, setState] = useState<Data<T>>({
     loading: true,
     error: null,
@@ -24,7 +23,7 @@ export const useAxios = <T>(
     setConfig({ ...config, ...opts });
   };
 
-  const refetch = () => {
+  const fetch = () => {
     setState({
       ...state,
       loading: true,
@@ -47,6 +46,6 @@ export const useAxios = <T>(
           setState({ ...state, loading: false, error });
         });
     }
-  }, [trigger, config, skip, ...deps]);
-  return { ...state, refetch, reconfig };
+  }, [trigger, config, skip]);
+  return { ...state, fetch, reconfig };
 };
