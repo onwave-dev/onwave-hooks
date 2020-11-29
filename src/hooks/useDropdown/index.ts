@@ -18,10 +18,8 @@ export const useDropdown = () => {
         !ref.current ||
         ((ref.current as unknown) as Element).contains(target as Element)
       ) {
-        console.log("false");
         return;
       }
-      console.log("close");
 
       close();
     };
