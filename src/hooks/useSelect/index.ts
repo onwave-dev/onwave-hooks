@@ -2,17 +2,12 @@ import React, { useState } from "react";
 
 type Params = {
   list: any[];
-  placeHolder?: string;
+  text?: any[];
   initialIndex?: number;
   isMultiple?: boolean;
 };
 
-export const useSelect = ({
-  list,
-  placeHolder,
-  initialIndex,
-  isMultiple,
-}: Params) => {
+export const useSelect = ({ list, text, initialIndex, isMultiple }: Params) => {
   const [selectedIndex, setSelectedIndex] = useState(
     isMultiple ? [initialIndex] : initialIndex
   );
@@ -46,7 +41,7 @@ export const useSelect = ({
     items: list,
     onChange: handleChange,
     value: getValue(selectedIndex),
-    placeHolder,
+    text,
     multiple: isMultiple,
   };
 };
