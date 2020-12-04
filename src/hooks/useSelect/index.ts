@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 export const useSelect = (
-  items: { value: number; text: string }[],
-  initialValue?: number,
+  items: { value: any; text: string }[],
+  initialValue?: any,
   placeHolder?: string
 ) => {
   const [value, setValue] = useState(initialValue);
