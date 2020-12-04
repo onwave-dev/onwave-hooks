@@ -8,7 +8,9 @@ export const useSelect = (
   const [value, setValue] = useState(initialValue);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setValue(Number(e.target.value) ?? e.target.value);
+    setValue(
+      Boolean(Number(e.target.value)) ? Number(e.target.value) : e.target.value
+    );
   };
 
   return {
