@@ -4,7 +4,7 @@ import external from "rollup-plugin-peer-deps-external";
 import typescript from "rollup-plugin-typescript2";
 import pkg from "./package.json";
 
-const dependencies = ["email-validator"];
+const dependencies = ["email-validator", "axios"];
 export default {
   input: "src/index.ts",
   output: [
