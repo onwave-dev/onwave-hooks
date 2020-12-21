@@ -32,9 +32,9 @@ export const useAxios = <T>(
   };
 
   useEffect(() => {
-    if (skip) return;
-    if (config) {
-      axiosInstance(config)
+    const source = defaultAxios.CancelToken.source();
+    if (!skip && config) {
+      axiosInstance({ ...config, cancelToken: source.token })
         .then(({ data }) => {
           setState({
             ...state,
@@ -46,6 +46,10 @@ export const useAxios = <T>(
           setState({ ...state, loading: false, error });
         });
     }
+    return () => {
+      source.cancel("Operation canceled by the user.");
+    };
   }, [trigger, config, skip]);
+
   return { ...state, fetch, reconfig };
 };
