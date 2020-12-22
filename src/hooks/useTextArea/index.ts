@@ -1,15 +1,18 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 export const useTextArea = (initialValue: any) => {
   const [value, setValue] = useState(initialValue);
 
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setValue(e.target.value);
-  };
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setValue(e.target.value);
+    },
+    [setValue]
+  );
 
-  const reset = () => {
+  const reset = useCallback(() => {
     setValue(initialValue);
-  };
+  }, [setValue, initialValue]);
 
   return { value, onChange: handleChange, reset };
 };
