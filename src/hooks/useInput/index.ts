@@ -16,7 +16,8 @@ export const useInput = (initialValue: any) => {
 
   const reset = useCallback(() => {
     setValue(initialValue);
-  }, [initialValue, setValue]);
+    setFile(undefined);
+  }, [initialValue, setValue, setFile]);
 
   return { value, onChange: handleChange, reset, file };
 };
