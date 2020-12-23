@@ -13,7 +13,7 @@ export const useAxios = <T>(
 ) => {
   const [config, setConfig] = useState(opts);
   const [state, setState] = useState<Data<T>>({
-    loading: true,
+    loading: false,
     error: null,
     data: null,
   });
@@ -21,6 +21,7 @@ export const useAxios = <T>(
 
   const reconfig = (opts: AxiosRequestConfig) => {
     setConfig({ ...config, ...opts });
+    setState({ ...state, loading: true });
   };
 
   const fetch = () => {
