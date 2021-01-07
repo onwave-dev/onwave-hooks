@@ -19,5 +19,5 @@ export const useInput = (initialValue: any) => {
     setFile(undefined);
   }, [initialValue, setValue, setFile]);
 
-  return { value, onChange: handleChange, reset, file };
+  return { value, onChange: handleChange, reset, file, setValue };
 };

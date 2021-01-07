@@ -1,5 +1,5 @@
 import defaultAxios, { AxiosError, AxiosRequestConfig } from "axios";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 type Data<T> = {
   data: T | null;
@@ -32,6 +32,18 @@ export const useAxios = <T>(
     setTrigger(Date.now());
   };
 
+  const post = useCallback(
+    async (opts: AxiosRequestConfig) => {
+      try {
+        const request = await axiosInstance({ ...config, ...opts });
+        return { request: request, error: null };
+      } catch (e) {
+        return { request: null, error: e };
+      }
+    },
+    [config]
+  );
+
   useEffect(() => {
     const source = defaultAxios.CancelToken.source();
     if (!skip && config) {
@@ -52,5 +64,5 @@ export const useAxios = <T>(
     };
   }, [trigger, config, skip]);
 
-  return { ...state, fetch, reconfig };
+  return { ...state, fetch, reconfig, post };
 };
