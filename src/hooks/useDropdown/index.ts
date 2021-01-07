@@ -1,23 +1,20 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-const ESC_KEY = 27;
+const ESC_KEY = "Escape";
 
-const onEscapeKeyPress = (fn: () => void) => ({ keyCode }: KeyboardEvent) =>
-  keyCode === ESC_KEY ? fn() : null;
+const onEscapeKeyPress = (fn: () => void) => ({ code }: KeyboardEvent) =>
+  code === ESC_KEY ? fn() : null;
 
-export const useDropdown = () => {
+export const useDropdown = <T extends Element>() => {
   const [isOpen, setIsOpen] = useState(false);
-  const ref = useRef();
+  const ref = useRef<T>(null);
 
   const open = useCallback(() => setIsOpen(true), []);
   const close = useCallback(() => setIsOpen(false), []);
 
   useEffect(() => {
     const handleGlobalMouseDown = ({ target }: MouseEvent) => {
-      if (
-        !ref.current ||
-        ((ref.current as unknown) as Element).contains(target as Element)
-      ) {
+      if (!ref.current || ref.current.contains(target as Element)) {
         return;
       }
 
