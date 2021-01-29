@@ -22,6 +22,7 @@ export const useAxios = <T>(
   const reconfig = (opts: AxiosRequestConfig) => {
     setConfig({ ...config, ...opts });
     setState({ ...state, loading: true });
+    setTrigger(Date.now());
   };
 
   const fetch = () => {
@@ -33,10 +34,13 @@ export const useAxios = <T>(
   };
 
   const post = useCallback(
-    async (opts: AxiosRequestConfig) => {
+    async <T>(opts: AxiosRequestConfig) => {
       try {
         const request = await axiosInstance({ ...config, ...opts });
-        return { request: request, error: null };
+        return {
+          request: { ...request, data: request.data as T },
+          error: null,
+        };
       } catch (e) {
         return { request: null, error: e };
       }
